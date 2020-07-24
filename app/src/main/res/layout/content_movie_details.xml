@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MovieDetailsActivity"
+    tools:showIn="@layout/activity_movie_details">
+
+
+    <ImageView
+        android:id="@+id/movie_content_poster"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/movie_content_poster_guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/movie_content_poster_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <ProgressBar
+        android:id="@+id/movie_content_progressbar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <RatingBar
+        android:id="@+id/movie_content_rating"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/material_layout_padding"
+        android:layout_marginLeft="@dimen/material_layout_padding"
+        android:layout_marginTop="@dimen/material_layout_padding"
+        android:numStars="10"
+        android:progressTint="@color/gold"
+        android:stepSize="0.1"
+        app:layout_constraintBottom_toTopOf="@+id/movie_content_title"
+        app:layout_constraintEnd_toStartOf="@+id/movie_content_rating_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_content_poster" />
+
+    <TextView
+        android:id="@+id/movie_content_rating_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/material_layout_padding"
+        android:paddingEnd="@dimen/material_layout_padding"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="@dimen/primary_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/movie_content_rating"
+        app:layout_constraintStart_toEndOf="@+id/movie_content_rating"
+        app:layout_constraintTop_toTopOf="@+id/movie_content_rating" />
+
+    <ImageView
+        android:id="@+id/movie_bookmark"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="@dimen/material_layout_padding"
+        android:layout_marginEnd="@dimen/material_layout_padding"
+        android:layout_marginRight="@dimen/material_layout_padding"
+        android:background="@drawable/bookmark_button_selector"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_content_poster" />
+
+    <TextView
+        android:id="@+id/movie_content_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/material_layout_padding"
+        android:paddingTop="@dimen/material_layout_padding"
+        android:paddingEnd="@dimen/material_layout_padding"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="@dimen/primary_text_size_l"
+        app:layout_constraintBottom_toTopOf="@+id/movie_content_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_content_rating" />
+
+    <TextView
+        android:id="@+id/movie_content_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/material_layout_padding"
+        android:paddingEnd="@dimen/material_layout_padding"
+        android:paddingBottom="@dimen/material_layout_padding"
+        android:textColor="@color/secondaryTextColor"
+        android:textSize="@dimen/primary_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/movie_content_released_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_content_title" />
+
+    <TextView
+        android:id="@+id/movie_content_released_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/material_layout_padding"
+        android:paddingEnd="@dimen/material_layout_padding"
+        android:text="@string/release_date"
+        android:textColor="@color/secondaryTextColor"
+        android:textSize="@dimen/secondary_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/movie_content_released_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_content_description" />
+
+    <TextView
+        android:id="@+id/movie_content_released_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/material_layout_padding"
+        android:paddingEnd="@dimen/material_layout_padding"
+        android:paddingBottom="@dimen/material_layout_padding"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="@dimen/primary_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/movie_content_runtime_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_content_released_title" />
+
+    <TextView
+        android:id="@+id/movie_content_runtime_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/material_layout_padding"
+        android:paddingEnd="@dimen/material_layout_padding"
+        android:text="@string/runtime"
+        android:textColor="@color/secondaryTextColor"
+        android:textSize="@dimen/secondary_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/movie_content_runtime_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_content_released_description" />
+
+    <TextView
+        android:id="@+id/movie_content_runtime_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/material_layout_padding"
+        android:paddingEnd="@dimen/material_layout_padding"
+        android:paddingBottom="@dimen/material_layout_padding"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="@dimen/primary_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/movie_content_genre_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_content_runtime_title" />
+
+    <TextView
+        android:id="@+id/movie_content_genre_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/material_layout_padding"
+        android:paddingEnd="@dimen/material_layout_padding"
+        android:text="@string/genre"
+        android:textColor="@color/secondaryTextColor"
+        android:textSize="@dimen/secondary_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/movie_content_genre_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_content_runtime_description" />
+
+    <TextView
+        android:id="@+id/movie_content_genre_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/material_layout_padding"
+        android:paddingEnd="@dimen/material_layout_padding"
+        android:paddingBottom="@dimen/material_layout_padding"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="@dimen/primary_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/movie_content_language_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_content_genre_title" />
+
+    <TextView
+        android:id="@+id/movie_content_language_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/material_layout_padding"
+        android:paddingEnd="@dimen/material_layout_padding"
+        android:text="@string/language"
+        android:textColor="@color/secondaryTextColor"
+        android:textSize="@dimen/secondary_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/movie_content_language_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_content_genre_description" />
+
+    <TextView
+        android:id="@+id/movie_content_language_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/material_layout_padding"
+        android:paddingEnd="@dimen/material_layout_padding"
+        android:paddingBottom="@dimen/material_layout_padding"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="@dimen/primary_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/movie_content_divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_content_language_title" />
+
+    <View
+        android:id="@+id/movie_content_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/secondaryTextColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_content_language_description" />
+
+    <TextView
+        android:id="@+id/movie_crew_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/material_layout_padding"
+        android:paddingTop="@dimen/material_layout_padding"
+        android:paddingEnd="@dimen/material_layout_padding"
+        android:paddingBottom="@dimen/material_layout_padding"
+        android:text="@string/crew"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="@dimen/primary_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/movie_crew_director_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_content_divider" />
+
+    <TextView
+        android:id="@+id/movie_crew_director_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/material_layout_padding"
+        android:paddingEnd="@dimen/material_layout_padding"
+        android:text="@string/director"
+        android:textColor="@color/secondaryTextColor"
+        android:textSize="@dimen/secondary_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/movie_crew_director_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_crew_title" />
+
+    <TextView
+        android:id="@+id/movie_crew_director_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/material_layout_padding"
+        android:paddingEnd="@dimen/material_layout_padding"
+        android:paddingBottom="@dimen/material_layout_padding"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="@dimen/primary_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/movie_crew_writers_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_crew_director_title" />
+
+    <TextView
+        android:id="@+id/movie_crew_writers_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/material_layout_padding"
+        android:paddingEnd="@dimen/material_layout_padding"
+        android:text="@string/writers"
+        android:textColor="@color/secondaryTextColor"
+        android:textSize="@dimen/secondary_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/movie_crew_writers_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_crew_director_description" />
+
+    <TextView
+        android:id="@+id/movie_crew_writers_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/material_layout_padding"
+        android:paddingEnd="@dimen/material_layout_padding"
+        android:paddingBottom="@dimen/material_layout_padding"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="@dimen/primary_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/movie_crew_actors_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_crew_writers_title" />
+
+    <TextView
+        android:id="@+id/movie_crew_actors_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/material_layout_padding"
+        android:paddingEnd="@dimen/material_layout_padding"
+        android:text="@string/actors"
+        android:textColor="@color/secondaryTextColor"
+        android:textSize="@dimen/secondary_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/movie_crew_actors_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_crew_writers_description" />
+
+    <TextView
+        android:id="@+id/movie_crew_actors_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:paddingStart="@dimen/material_layout_padding"
+        android:paddingEnd="@dimen/material_layout_padding"
+        android:paddingBottom="@dimen/material_layout_padding"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="@dimen/primary_text_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_crew_actors_title" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

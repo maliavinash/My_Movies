@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">My Movies</string>
+    <string name="home_page">Search Movies</string>
+    <string name="intent_imdbid">imdbid</string>
+    <string name="movie_search_error_1">Could not find movies, Please try again later</string>
+    <string name="movie_search_error_2">Could not find movie details, Please try again later</string>
+    <string name="open_round_bracket"> (</string>
+    <string name="close_round_bracket">) </string>
+    <string name="release_date">Release Date</string>
+    <string name="runtime">Runtime</string>
+    <string name="genre">Genre</string>
+    <string name="language">Language</string>
+    <string name="crew">Crew</string>
+    <string name="director">Director</string>
+    <string name="writers">Writers</string>
+    <string name="actors">Actors</string>
+    <string name="movie">movie</string>
+    <string name="forward_slash">/</string>
+    <string name="ten">10</string>
+</resources>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/omdb_search_result_element">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:id="@+id/omdb_search_result_top_margin"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="2dp"
+        android:layout_margin="@dimen/material_layout_padding"
+        app:cardUseCompatPadding="false"
+        android:layout_below="@+id/omdb_search_result_top_margin"
+        app:cardMaxElevation="4dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="184dp"
+                android:id="@+id/omdb_movie_poster"
+                android:scaleType="centerCrop"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/omdb_movie_year"
+                android:layout_below="@+id/omdb_movie_title"
+                android:textSize="@dimen/secondary_text_size"
+                android:paddingStart="@dimen/material_layout_padding"
+                android:paddingBottom="@dimen/material_layout_padding"
+                android:textColor="@color/primaryTextColor"
+                android:paddingLeft="@dimen/material_layout_padding" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/omdb_movie_title"
+                android:layout_below="@+id/omdb_movie_poster"
+                android:padding="@dimen/material_layout_padding"
+                android:textSize="@dimen/primary_text_size"
+                android:textColor="@color/primaryTextColor"
+                />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

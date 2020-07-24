@@ -1,0 +1,7 @@
+<resources>
+    <dimen name="material_layout_padding">16dp</dimen>
+    <dimen name="material_layout_padding_s">8dp</dimen>
+    <dimen name="primary_text_size">16sp</dimen>
+    <dimen name="primary_text_size_l">24sp</dimen>
+    <dimen name="secondary_text_size">12sp</dimen>
+</resources>
