@@ -134,7 +134,7 @@ public class HomeActivity extends AppCompatActivity {
     private void getBookMarks(String searchTerm) {
         try {
             bookmarks.clear();
-            Log.e("Size", String.valueOf(bookmarks.size()));
+
             DBAdapter db = new DBAdapter(this);
 
             db.openDB();
@@ -157,7 +157,7 @@ public class HomeActivity extends AppCompatActivity {
             }
             db.closeDB();
 
-            Log.e("Size", String.valueOf(bookmarks.size()));
+
             if (bookmarks.size() > 0) {
                 textView.setVisibility(View.GONE);
                 mBookmarksRecyclerView.setVisibility(View.VISIBLE);

@@ -125,7 +125,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 } while (c.moveToNext());
             }
             db.closeDB();
-            Log.e("size", String.valueOf(bookmarks.size()));
+            
             if (bookmarks.size() > 0) {
                 mMovieBookmarkImageView.setActivated(true);
             } else {
