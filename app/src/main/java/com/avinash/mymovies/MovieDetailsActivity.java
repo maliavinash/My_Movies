@@ -4,9 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import android.content.SharedPreferences;
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,17 +16,16 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.avinash.mymovies.actions.StartNewActivityAction;
+import com.avinash.mymovies.adapters.BookmarkListAdapter;
 import com.avinash.mymovies.controller.SearchController;
+import com.avinash.mymovies.database.model.Bookmark;
+import com.avinash.mymovies.database.DBAdapter;
 import com.avinash.mymovies.model.MovieDetail;
-import com.avinash.mymovies.utils.PreferenceServices;
-import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,24 +49,16 @@ public class MovieDetailsActivity extends AppCompatActivity {
     TextView mMovieRatingTextView;
     RatingBar mMovieRatingBar;
 
-    /**
-     * Model
-     */
     private MovieDetail mMovieDetail;
 
-    /**
-     * Controllers
-     */
     private SearchController mSearchController;
-
-    private ArrayList<HashMap<String, String>> bookmarkList;
+    ArrayList<Bookmark> bookmarks = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
-        PreferenceServices.init(this);
-        bookmarkList = new ArrayList<>();
+
         mMoviePosterImageView = findViewById(R.id.movie_content_poster);
         mMovieBookmarkImageView = findViewById(R.id.movie_bookmark);
         mMovieTitleTextView = findViewById(R.id.movie_content_title);
@@ -96,69 +87,81 @@ public class MovieDetailsActivity extends AppCompatActivity {
         //mMovieBookmarkImageView.setImageResource(R.drawable.unbookmark);
 
 
-
-
-
         mMovieBookmarkImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!v.isActivated()) {
                     v.setActivated(true);
-
-                    HashMap<String, String> map = new HashMap<>();
-                    map.put("Title", mMovieDetail.getTitle());
-                    map.put("Year", mMovieDetail.getYear());
-                    map.put("imdbID", mMovieDetail.getImdbId());
-                    map.put("Type", mMovieDetail.getType());
-                    map.put("Poster", mMovieDetail.getPoster());
-
-                    bookmarkList.add(map);
-
-                    PreferenceServices.getInstance().setBookmarllist(bookmarkList);
-                    Toast.makeText(getApplicationContext(), "Added to bookmark!", Toast.LENGTH_SHORT).show();
+                    AddToBookmarkTable(mMovieDetail.getImdbId(), mMovieDetail.getTitle(), Integer.parseInt(mMovieDetail.getYear()), mMovieDetail.getType(), mMovieDetail.getPoster());
                 } else {
                     v.setActivated(false);
-
-                    Toast.makeText(getApplicationContext(), "Removed from bookmark!", Toast.LENGTH_SHORT).show();
-
-                    for (int i = 0; i < bookmarkList.size(); i++) {
-                        HashMap<String, String> map = bookmarkList.get(i);
-                        if (map.get("Title").equals(mMovieDetail.getTitle())) {
-                            bookmarkList.remove(map);
-                            PreferenceServices.getInstance().clearAllPreferance();
-                            PreferenceServices.getInstance().setBookmarllist(bookmarkList);
-                        }
-                    }
-
+                    RemoveBookmarkTable(mMovieDetail.getImdbId());
+                    //Toast.makeText(getApplicationContext(), "Removed from bookmark!", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 
     }
 
-
-    private void getBookmarkList() {
+    private void getBookMarks(String searchTerm) {
         try {
-            bookmarkList = PreferenceServices.getInstance().getBookmarllist();
+            bookmarks.clear();
+            DBAdapter db = new DBAdapter(this);
 
-            if (bookmarkList.size() > 0) {
-                for (int i = 0; i < bookmarkList.size(); i++) {
-                    HashMap<String, String> map = bookmarkList.get(i);
-                    if (map.get("Title").equals(mMovieDetail.getTitle())) {
-                        mMovieBookmarkImageView.setActivated(true);
-                    }
-                }
+            db.openDB();
+            Cursor c = db.retrievebyID(searchTerm);
+            //if the cursor has some data
+            if (c.moveToFirst()) {
+                //looping through all the records
+                do {
+                    //pushing each record in the employee list
+                    bookmarks.add(new Bookmark(
+                            c.getString(1),
+                            c.getString(2),
+                            c.getInt(3),
+                            c.getString(4),
+                            c.getString(5)
+                    ));
+                } while (c.moveToNext());
+            }
+            db.closeDB();
+            Log.e("size", String.valueOf(bookmarks.size()));
+            if (bookmarks.size() > 0) {
+                mMovieBookmarkImageView.setActivated(true);
+            } else {
+                mMovieBookmarkImageView.setActivated(false);
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            //Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
+            //textView.setVisibility(View.VISIBLE);
             Log.e("Error", e.toString());
         }
+
     }
 
-    private void searchMovieDetailsById(String omdbId) {
-        mSearchController.fetchMovieDetailsById(omdbId, new Callback<MovieDetail>() {
+    private void AddToBookmarkTable(String imdbID, String Title, int Year, String Type, String Poster) {
+        DBAdapter db = new DBAdapter(this);
+        db.openDB();
+        if (db.add(imdbID, Title, Year, Type, Poster)) {
+            Toast.makeText(getApplicationContext(), "Added to bookmark!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Unable to Add Bookmark", Toast.LENGTH_SHORT).show();
+        }
+        db.closeDB();
+    }
+
+    private void RemoveBookmarkTable(String ID) {
+        DBAdapter db = new DBAdapter(this);
+        db.openDB();
+        if (db.deleteBookmarkFromID(ID)) {
+            Toast.makeText(getApplicationContext(), "bookmark deleted!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Unable to Delete Bookmark", Toast.LENGTH_SHORT).show();
+        }
+        db.closeDB();
+    }
+
+    private void searchMovieDetailsById(String Id) {
+        mSearchController.fetchMovieDetailsById(Id, new Callback<MovieDetail>() {
             @Override
             public void onResponse(Call<MovieDetail> call, Response<MovieDetail> response) {
                 MovieDetail MovieDetail = response.body();
@@ -195,7 +198,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         Picasso.get().cancelRequest(mMoviePosterImageView);
         Picasso.get().load(mMovieDetail.getPoster()).into(mMoviePosterImageView);
 
-        getBookmarkList();
+        getBookMarks(mMovieDetail.getImdbId());
     }
 
     @Override
